@@ -53,11 +53,11 @@ class RFC_PM:
         "A",
     ]
 
-    def __init__(self, data) -> None:
-        self.company_name = data["nombre_empresa"].replace(",", " ").upper()
-        self.day = data["foundation"].split("-")[2]
-        self.month = data["foundation"].split("-")[1]
-        self.year = data["foundation"].split("-")[0]
+    def __init__(self, nombre_empresa:str, fecha_constitucion:str) -> None:
+        self.company_name = nombre_empresa.replace(",", " ").upper()
+        self.day = fecha_constitucion.split("-")[2]
+        self.month = fecha_constitucion.split("-")[1]
+        self.year = fecha_constitucion.split("-")[0]
         self.homoclave = Homoclave()
         self.verification_digit = VerificationDigit()
 

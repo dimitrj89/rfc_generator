@@ -64,16 +64,14 @@ class RFC_PF:
 
     _REGEX_FILTER_NAME = "^(MA|MA.|MARIA|JOSE)\\s+"
 
-    def __init__(self, data) -> None:
-        self.first_name = data["nombre"].upper()
-        temp_last_name = data["apellidos"].split(" ")
-        self.first_last_name = temp_last_name[0].upper()
-        self.second_last_name = (
-            data["apellidos"].split(" ")[1].upper() if len(temp_last_name) > 1 else ""
-        )
-        self.day = data["birthday"].split("-")[2]
-        self.month = data["birthday"].split("-")[1]
-        self.year = data["birthday"].split("-")[0]
+    def __init__(self, nombres:str, apellido_paterno:str, fecha_nacimiento:str, apellido_materno:str = None):
+        self.first_name = nombres.upper()
+        self.first_last_name = apellido_paterno.upper()
+        self.second_last_name = apellido_materno.upper() if apellido_materno else ""
+        
+        self.day = fecha_nacimiento.split("-")[2]
+        self.month = fecha_nacimiento.split("-")[1]
+        self.year = fecha_nacimiento.split("-")[0]
         self.homoclave = Homoclave()
         self.verification_digit = VerificationDigit()
 

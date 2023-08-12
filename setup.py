@@ -11,9 +11,9 @@ setup(
     packages=find_packages(where="app"),
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/ArjanCodes/2023-package",
+    url="https://github.com/dimitrj89/rfc_generator",
     author="Dimitrj Bonansea",
-    author_email="dimitrj.bonansea.re@gmail.com",
+    author_email="dimitrj22@gmail.com",
     license="MIT",
     classifiers=[
         "License :: OSI Approved :: MIT License",
