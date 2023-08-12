@@ -9,7 +9,7 @@ _After installing the package use following import:_ <br>
 _Then use following commands:_
 
 **rfc_pf = RFC_PF(<br>**
-    **&emsp;nombre='firstname', <br>**
+    **&emsp;nombres='firstname and secondname', <br>**
     **&emsp;apellido_paterno='paternal_last_name', <br>**
     **&emsp;apellido_materno='maternal_last_name', [Optional] <br>** 
     **&emsp;fecha_nacimiento='birthdate' [format='YYYY-MM-DD'] <br>**
