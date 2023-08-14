@@ -3,6 +3,7 @@ from num2words import num2words
 from .homoclave import Homoclave
 from .verification_digit import VerificationDigit
 import re
+import datetime
 
 
 class RFC_PM:
@@ -54,12 +55,26 @@ class RFC_PM:
     ]
 
     def __init__(self, nombre_empresa:str, fecha_constitucion:str) -> None:
+
+        if nombre_empresa and len(nombre_empresa) <= 1:
+            raise Exception("Error, company name should have at least 2 characters.")
+
+        if fecha_constitucion and not self._validate_date_format(fecha_constitucion):
+            raise Exception("Incorrect foundation date format, should be YYYY-MM-DD")
+
         self.company_name = nombre_empresa.replace(",", " ").upper()
         self.day = fecha_constitucion.split("-")[2]
         self.month = fecha_constitucion.split("-")[1]
         self.year = fecha_constitucion.split("-")[0]
         self.homoclave = Homoclave()
         self.verification_digit = VerificationDigit()
+
+    def _validate_date_format(date_text) -> bool:
+        try:
+            datetime.date.fromisoformat(date_text)
+            return True
+        except ValueError:
+            return False
 
     def generate(self) -> str:
         words = self.company_name.replace(",", "").split(" ")
