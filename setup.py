@@ -5,7 +5,7 @@ with open("app/README.md", "r") as f:
 
 setup(
     name="rfc_generator",
-    version="0.0.10",
+    version="0.0.11",
     description="Generate RFC for PF and PM given input information",
     package_dir={"": "app"},
     packages=find_packages(where="app"),
@@ -24,5 +24,5 @@ setup(
     extras_require={
         "dev": ["pytest>=7.0", "twine>=4.0.2"],
     },
-    python_requires=">=3.10",
+    python_requires=">=3.7",
 )
