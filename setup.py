@@ -5,7 +5,7 @@ with open("app/README.md", "r") as f:
 
 setup(
     name="rfc_generator",
-    version="0.0.12",
+    version="0.0.13",
     description="Generate RFC for PF and PM given input information",
     package_dir={"": "app"},
     packages=find_packages(where="app"),

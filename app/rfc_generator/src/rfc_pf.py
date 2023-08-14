@@ -2,8 +2,6 @@ from unidecode import unidecode
 from .homoclave import Homoclave
 from .verification_digit import VerificationDigit
 import re
-import datetime
-
 
 class RFC_PF:
     _SPECIAL_PARTICLES = {
@@ -64,18 +62,20 @@ class RFC_PF:
     }
 
     _REGEX_FILTER_NAME = "^(MA|MA.|MARIA|JOSE)\\s+"
+    _REGEX_DATE_FORMAT = re.compile(r'^\d{4}-\d{2}-\d{2}$')
+
 
     def __init__(self, nombres:str, apellido_paterno:str, fecha_nacimiento:str, apellido_materno:str = None):
-        if nombres and len(nombres) <= 1:
+        if len(nombres) <= 1:
             raise Exception("Error, firstname should have at least 2 characters.")
         
-        if apellido_paterno and len(apellido_paterno) <= 1:
+        if len(apellido_paterno) <= 1:
             raise Exception("Error, paternal lastname should have at least 2 characters.")
         
         if apellido_materno and len(apellido_materno) <= 1:
             raise Exception("Error, maternal lastname should have at least 2 characters.")
         
-        if fecha_nacimiento and not self._validate_date_format(fecha_nacimiento):
+        if not self._validate_date_format(fecha_nacimiento):
             raise Exception("Incorrect birthdate format, should be YYYY-MM-DD")
 
         
@@ -89,12 +89,10 @@ class RFC_PF:
         self.homoclave = Homoclave()
         self.verification_digit = VerificationDigit()
 
-    def _validate_date_format(date_text) -> bool:
-        try:
-            datetime.date.fromisoformat(date_text)
+    def _validate_date_format(self,date_text) -> bool:
+        if self._REGEX_DATE_FORMAT.match(date_text):
             return True
-        except ValueError:
-            return False
+        return False
 
     def generate(self) -> str:
         name_code = self._obfuscateForbiddenWords(self._nameCode())

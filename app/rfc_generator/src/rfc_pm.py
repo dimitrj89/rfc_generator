@@ -3,10 +3,9 @@ from num2words import num2words
 from .homoclave import Homoclave
 from .verification_digit import VerificationDigit
 import re
-import datetime
-
 
 class RFC_PM:
+    _REGEX_DATE_FORMAT = re.compile(r'^\d{4}-\d{2}-\d{2}$')
     _ROMAN_NUMBER_REGEX = "^M{0,3}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$"
     _ROMAN_VALUES = {"I": 1, "V": 5, "X": 10, "L": 50, "C": 100, "D": 500, "M": 1000}
     _JURISTIC_PERSON_TYPE_REGEX = "(^S+\.+N+\.+C+\.)||(^S+\.+C+\.+L+\.)||(^S+\.+C+\.+S+\.)||(^A+\.+C+\.)||(^N+\.+C+\.)||(^S+\.+A+\.)||(^S+\.+C+\.)||(^R+\.+L+\.)||(^C+\.+V+\.)||(^S+\.)||(^R+\.)||(^C+\.)||(^V+\.)||(^L+\.)||(^A+\.)||(^N+\.)||(^P+\.)"
@@ -56,10 +55,10 @@ class RFC_PM:
 
     def __init__(self, nombre_empresa:str, fecha_constitucion:str) -> None:
 
-        if nombre_empresa and len(nombre_empresa) <= 1:
+        if len(nombre_empresa) <= 1:
             raise Exception("Error, company name should have at least 2 characters.")
 
-        if fecha_constitucion and not self._validate_date_format(fecha_constitucion):
+        if not self._validate_date_format(fecha_constitucion):
             raise Exception("Incorrect foundation date format, should be YYYY-MM-DD")
 
         self.company_name = nombre_empresa.replace(",", " ").upper()
@@ -69,12 +68,10 @@ class RFC_PM:
         self.homoclave = Homoclave()
         self.verification_digit = VerificationDigit()
 
-    def _validate_date_format(date_text) -> bool:
-        try:
-            datetime.date.fromisoformat(date_text)
+    def _validate_date_format(self,date_text) -> bool:
+        if self._REGEX_DATE_FORMAT.match(date_text):
             return True
-        except ValueError:
-            return False
+        return False
 
     def generate(self) -> str:
         words = self.company_name.replace(",", "").split(" ")
