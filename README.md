@@ -1,2 +1,2 @@
-# RFC Generator
-A package used to generate rfc for PF and PM given input information.
+# Mexican RFC Generator
+A package used to generate mexican RFC for PF and PM persons based on their information.
