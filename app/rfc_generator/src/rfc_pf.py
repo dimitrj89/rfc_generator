@@ -69,11 +69,11 @@ class RFC_PF:
         if len(nombres) <= 1:
             raise Exception("Error, firstname should have at least 2 characters.")
         
-        if len(apellido_paterno) <= 1:
-            raise Exception("Error, paternal lastname should have at least 2 characters.")
+        if len(apellido_paterno) < 1:
+            raise Exception("Error, paternal lastname should have at least 1 characters.")
         
-        if apellido_materno and len(apellido_materno) <= 1:
-            raise Exception("Error, maternal lastname should have at least 2 characters.")
+        if apellido_materno and len(apellido_materno) < 1:
+            raise Exception("Error, maternal lastname should have at least 1 characters.")
         
         if not self._validate_date_format(fecha_nacimiento):
             raise Exception("Incorrect birthdate format, should be YYYY-MM-DD")
@@ -138,7 +138,7 @@ class RFC_PF:
         return False
 
     def _isFirstLastNameIsTooShort(self) -> bool:
-        return len(self._normalize(self.first_last_name)) <= 2
+        return len(self._normalize(self.first_last_name)) < 2
 
     def _firstLastNameEmptyForm(self) -> str:
         return self._firstTwoLettersOf(self.second_last_name) + self._firstTwoLettersOf(
